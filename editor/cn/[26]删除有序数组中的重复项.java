@@ -58,7 +58,7 @@
 import java.util.Arrays;
 
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+class Solution26 {
     public int removeDuplicates(int[] nums) {
         int t = 0;
         for (int i = 0; i < nums.length; i++) {
@@ -71,7 +71,7 @@ class Solution {
 }
 //leetcode submit region end(Prohibit modification and deletion)
 
-class S26 {
+class Test26 {
     public static void main(String[] args) {
         int[] arr = {1, 1, 1, 2};
         int i = removeDuplicates2(arr);

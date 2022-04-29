@@ -1,30 +1,55 @@
-//1.两数之和
-//two-sum
-//给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。 
+//给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那 两个 整数，并返回它们的数组下标。 
 //
-// 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。 
+// 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。 
+//
+// 你可以按任意顺序返回答案。 
 //
 // 
 //
-// 示例: 
+// 示例 1： 
 //
-// 给定 nums = [2, 7, 11, 15], target = 9
-//
-//因为 nums[0] + nums[1] = 2 + 7 = 9
-//所以返回 [0, 1]
 // 
-// Related Topics 数组 哈希表
+//输入：nums = [2,7,11,15], target = 9
+//输出：[0,1]
+//解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。
+// 
+//
+// 示例 2： 
+//
+// 
+//输入：nums = [3,2,4], target = 6
+//输出：[1,2]
+// 
+//
+// 示例 3： 
+//
+// 
+//输入：nums = [3,3], target = 6
+//输出：[0,1]
+// 
+//
+// 
+//
+// 提示： 
+//
+// 
+// 2 <= nums.length <= 10⁴ 
+// -10⁹ <= nums[i] <= 10⁹ 
+// -10⁹ <= target <= 10⁹ 
+// 只会存在一个有效答案 
+// 
+//
+// 进阶：你可以想出一个时间复杂度小于 O(n²) 的算法吗？ 
+// Related Topics 数组 哈希表 👍 14290 👎 0
 
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-@SuppressWarnings("all")
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution0001 {
-    // class Solution {
-    public static int[] twoSum(int[] nums, int target) {
+class Solution1 {
+    public int[] twoSum(int[] nums, int target) {
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             int complement = target - nums[i];
@@ -38,8 +63,7 @@ class Solution0001 {
 }
 //leetcode submit region end(Prohibit modification and deletion)
 
-class TwoSum {
-
+class Test1 {
     public static void main(String[] args) {
         // int[] nums = {-1, -3, 0, 30, -31, 32, 2, 7, 23, 11, 15};
         int[] nums = {-1, -3, 0, 3, -3, 2, 2, 7, 2, 1, 5};
@@ -48,11 +72,8 @@ class TwoSum {
         // for (int i = 0; i < nums.length; i++) {
         //     System.out.println(i + ":" + nums[i]);
         // }
-        System.out.println(Arrays.toString(nums));
 
-        long start1 = System.nanoTime();
-        System.out.print(Arrays.toString(Solution0001.twoSum(nums, target)));
-        System.out.println("--1执行耗时: " + (System.nanoTime() - start1) + " ns");
+        System.out.println(Arrays.toString(nums));
 
         long start2 = System.nanoTime();
         System.out.print(Arrays.toString(twoSum02(nums, target)));
@@ -166,7 +187,7 @@ class TwoSum {
      */
     public static int[] twoSum05(int[] arr, int target) {
         // 构建哈希表大小，2048 = 2^11 = 0000 0000 0000 0000 0000 1000 0000 0000
-        int volume = 16;
+        int volume = 2048;
         // 位运算（与运算）模板，0000 0000 0000 0000 0111 1111 1111，为了计算下标，防止数组越界
         int bitMode = volume - 1;
         // 哈希表容器（数组下标：表示元素值，数组元素：表示下标代表的元素在原数组中的索引）
@@ -179,12 +200,12 @@ class TwoSum {
             // 初始化的数组中，元素值全部为0，如果不为零，则代表的是排序数组中的元素索引+1 的值
             if (result[c] != 0) {
                 // 返回数组下标中存的值-1，和当前值
-                System.out.println(Arrays.toString(result));
+                // System.out.println(Arrays.toString(result));
                 return new int[]{result[c] - 1, i};
             }
             // 为了避免索引0和哈希表容器中默认值冲突，将索引值+1存到实际值对应的下标的空间中
             result[arr[i] & bitMode] = i + 1;
-            System.out.println(Arrays.toString(result));
+            // System.out.println(Arrays.toString(result));
         }
         throw new IllegalArgumentException("No two sum solution");
     }
