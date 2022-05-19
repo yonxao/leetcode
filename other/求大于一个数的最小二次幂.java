@@ -3,7 +3,25 @@ class Q1 {
 
     public static void main(String[] args) {
         System.out.println(tableSizeFor(123));
+        System.out.println(n2(123));
     }
+
+
+    /**
+     * 把数减一后, 转成二进制, 获取最高位的1对应的十进制数, 乘以2
+     */
+    public static int n2(Integer capacity) {
+        // 获取一个数的二进制最高位
+        int i = Integer.highestOneBit(capacity - 1);
+        // i |= (i >>  1);
+        // i |= (i >>  2);
+        // i |= (i >>  4);
+        // i |= (i >>  8);
+        // i |= (i >> 16);
+        // return i - (i >>> 1);
+        return i * 2;
+    }
+
 
     /**
      * 先把数转成二进制，然后把真值的所有位的数变成 1，最后 +1
