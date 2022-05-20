@@ -59,6 +59,9 @@ import java.util.Arrays;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution26 {
+    /**
+     * [26]删除有序数组中的重复项 : 原地+双指针
+     */
     public int removeDuplicates(int[] nums) {
         int t = 0;
         for (int i = 0; i < nums.length; i++) {
