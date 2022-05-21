@@ -51,11 +51,16 @@ import java.util.Map;
 class Solution1 {
     /**
      * [1]两数之和 : 双哈希
+     * <p>
+     * 时间复杂度：O(n)        <br>
+     * 空间复杂度：O(n)
      */
     public int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> map = new HashMap<>();
+        // 哈希表
+        Map<Integer, Integer> map = new HashMap<>(nums.length);
         for (int i = 0; i < nums.length; i++) {
             int complement = target - nums[i];
+            // 哈希算法
             if (map.containsKey(complement)) {
                 return new int[]{map.get(complement), i};
             }
@@ -68,43 +73,44 @@ class Solution1 {
 
 class Test1 {
     public static void main(String[] args) {
-        // int[] nums = {-1, -3, 0, 30, -31, 32, 2, 7, 23, 11, 15};
+
         int[] nums = {-1, -3, 0, 3, -3, 2, 2, 7, 2, 1, 5};
         int target = 7;
 
-        // for (int i = 0; i < nums.length; i++) {
-        //     System.out.println(i + ":" + nums[i]);
-        // }
+        // 这个用例第五种解法会失败, 当取模的值一样时, 覆盖数据造成数据丢失
+        // int[] nums = {0, 4, 3, 0};
+        // int target = 0;
 
         System.out.println(Arrays.toString(nums));
 
         long start2 = System.nanoTime();
         System.out.print(Arrays.toString(twoSum02(nums, target)));
-        System.out.println("--2执行耗时: " + (System.nanoTime() - start2) + " ns");
+        System.out.println("--02执行耗时: " + (System.nanoTime() - start2) + " ns");
 
         long start3 = System.nanoTime();
         System.out.print(Arrays.toString(twoSum03(nums, target)));
-        System.out.println("--3执行耗时: " + (System.nanoTime() - start3) + " ns");
+        System.out.println("--03执行耗时: " + (System.nanoTime() - start3) + " ns");
 
         long start4 = System.nanoTime();
         System.out.print(Arrays.toString(twoSum04(nums, target)));
-        System.out.println("--4执行耗时: " + (System.nanoTime() - start4) + " ns");
+        System.out.println("--04执行耗时: " + (System.nanoTime() - start4) + " ns");
 
         long start5 = System.nanoTime();
         System.out.print(Arrays.toString(twoSum05(nums, target)));
-        System.out.println("--5执行耗时: " + (System.nanoTime() - start5) + " ns");
+        System.out.println("--05执行耗时: " + (System.nanoTime() - start5) + " ns");
 
     }
 
 
     /**
      * 暴力法：
+     * <p>
      * 暴力法很简单，遍历每个元素 x，并查找是否存在一个值与 (target - x) 相等的目标元素。
      * 两层 for 循环，n * n
      * <p>
      * 复杂度分析：
-     * 时间复杂度：O(n^2)
-     * 对于每个元素，我们试图通过遍历数组的其余部分来寻找它所对应的目标元素，这将耗费 O(n) 的时间。因此时间复杂度为 O(n^2)。
+     * 时间复杂度：O(n^2)  <br>
+     * 对于每个元素，我们试图通过遍历数组的其余部分来寻找它所对应的目标元素，这将耗费 O(n) 的时间。因此时间复杂度为 O(n^2)。<br>
      * 空间复杂度：O(1)
      */
     public static int[] twoSum02(int[] nums, int target) {
@@ -123,6 +129,7 @@ class Test1 {
 
     /**
      * 两遍哈希表
+     * <p>
      * 为了对运行时间复杂度进行优化，我们需要一种更有效的方法来检查数组中是否存在目标元素。如果存在，我们需要找出它的索引。
      * 保持数组中的每个元素与其索引相互对应的最好方法是什么？哈希表。
      * <p>
@@ -157,13 +164,14 @@ class Test1 {
 
     /**
      * 一遍哈希表
+     * <p>
      * 事实证明，我们可以一次完成。在进行迭代并将元素插入到表中的同时，我们还会回过头来检查表中是否已经存在当前元素所对应的目标元素。
      * 如果它存在，那我们已经找到了对应解，并立即将其返回。
      * <p>
-     * 复杂度分析：
-     * 时间复杂度：O(n)
-     * 我们只遍历了包含有 n 个元素的列表一次。在表中进行的每次查找只花费 O(1)的时间。
-     * 空间复杂度：O(n)
+     * 复杂度分析：                                                             <br>
+     * 时间复杂度：O(n)                                                         <br>
+     * 我们只遍历了包含有 n 个元素的列表一次。在表中进行的每次查找只花费 O(1)的时间。     <br>
+     * 空间复杂度：O(n)                                                         <br>
      * 所需的额外空间取决于哈希表中存储的元素数量，该表最多需要存储 n 个元素。
      */
     public static int[] twoSum04(int[] nums, int target) {
@@ -180,43 +188,61 @@ class Test1 {
 
 
     /**
-     * 使用 数组 构建一个哈希表，一次循环
-     * 本质上是用数组模拟了一个哈希表，缺陷是无法自动扩容
-     * 受限于构建的哈希表大小，数值在（-1024,1023）才正常使用且个数不能大于2048个
+     * 使用 数组 构建一个哈希表, 一次循环, 索引为 key, 值为 value
      * <p>
-     * 复杂度分析：
-     * 时间复杂度：O(n)
+     * 本质上是用数组模拟了一个哈希表，缺陷是模拟的哈希算法(当key冲突时,会覆盖值,造成数据丢失)             <br>
+     * <p>
+     * 复杂度分析：                  <br>
+     * 时间复杂度：O(n)              <br>
      * 空间负责度：O(n)
      */
-    public static int[] twoSum05(int[] arr, int target) {
-        // 构建哈希表大小，2048 = 2^11 = 0000 0000 0000 0000 0000 1000 0000 0000
-        int volume = 2048;
-        // 位运算（与运算）模板，0000 0000 0000 0000 0111 1111 1111，为了计算下标，防止数组越界
-        int bitMode = volume - 1;
-        // 哈希表容器（数组下标：表示元素值，数组元素：表示下标代表的元素在原数组中的索引）
-        int[] result = new int[volume];
+    public static int[] twoSum05(int[] nums, int target) {
+        // 构建哈希表大小, 2048 = 2^11 = 0000 0000 0000 0000 0000 1000 0000 0000
+        int capacity = tableSizeFor(nums.length);
+        // 位运算(与运算)取模: 0000 0000 0000 0000 0111 1111 1111, 为了计算索引, 防止数组越界
+        int modulo = capacity - 1;
 
-        // 遍历排序数组
-        for (int i = 0; i < arr.length; i++) {
-            // （目标值-当前数组元素的值）的差值，和模板与运算，得出下标(这一步为了防止数组越界)
-            int c = (target - arr[i]) & bitMode;
-            // 初始化的数组中，元素值全部为0，如果不为零，则代表的是排序数组中的元素索引+1 的值
-            if (result[c] != 0) {
-                // 返回数组下标中存的值-1，和当前值
-                // System.out.println(Arrays.toString(result));
-                return new int[]{result[c] - 1, i};
+        // 哈希表容器(数组索引:表示元素的值;数组元素:表示元素在原数组中的索引)
+        // 这里需要注意的是:初始化的元素默认值都是0,需要处理元素值为0的情况
+        int[] hashtable = new int[capacity];
+
+        for (int i = 0; i < nums.length; i++) {
+            // (目标值-当前数组元素的值)的差值, 取模, 得出哈希表中的 key(数组的索引)
+            int index = (target - nums[i]) & modulo;
+
+            // 初始化的数组中, 元素值全部为0; 如果不为0, 则代表哈希表中含有元素
+            if (hashtable[index] != 0) {
+                // 由于模拟的哈希算法有可能有冲突, 此处相当于双重检查
+                if (target - nums[i] == nums[hashtable[index] - 1]) {
+                    return new int[]{hashtable[index] - 1, i};
+                }
             }
             // 为了避免索引0和哈希表容器中默认值冲突，将索引值+1存到实际值对应的下标的空间中
-            result[arr[i] & bitMode] = i + 1;
-            // System.out.println(Arrays.toString(result));
+            hashtable[nums[i] & modulo] = i + 1;
         }
         throw new IllegalArgumentException("No two sum solution");
+    }
+
+    @SuppressWarnings("all")
+    public static int tableSizeFor(int capacity) {
+        int MAXIMUM_CAPACITY = 1 << 30;
+        int n = capacity - 1;
+
+        n |= n >>> 1;
+        n |= n >>> 2;
+        n |= n >>> 4;
+        n |= n >>> 8;
+        n |= n >>> 16;
+
+        int tableSize = (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+        return tableSize < 32 ? 32 : tableSize;
     }
 
 
     /**
      * 自己最初的解法，其实就是暴力循环解法，但是自己写的漏洞百出
      */
+    @SuppressWarnings("all")
     public static int[] twoSumMy(int[] nums, int target) /*throws Exception*/ {
         /* 总结反思：此处本来时想的做个优化，碰到大于结果的数直接跳过，结果应为自己考虑不全面，反而出错了
          * 第一反应：画蛇添足了，也是思维定式吧，没有考虑负数，只考虑了正数

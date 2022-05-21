@@ -45,12 +45,14 @@
 class Solution122 {
     /**
      * [122]买卖股票的最佳时机 II : 贪心算法(局部选择->全局最优解)
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
      */
     public int maxProfit(int[] prices) {
-        // 总收益
+        // 总收益(全局)
         int profit = 0;
         for (int i = 1; i < prices.length; i++) {
-            // 如果今天比昨天价高, 计算收益
+            // 如果今天比昨天价高, 累加昨买今卖的收益(局部)
             if (prices[i] > prices[i - 1]) {
                 profit += prices[i] - prices[i - 1];
             }

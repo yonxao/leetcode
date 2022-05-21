@@ -61,15 +61,20 @@ import java.util.Arrays;
 class Solution26 {
     /**
      * [26]删除有序数组中的重复项 : 原地+双指针
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
      */
     public int removeDuplicates(int[] nums) {
-        int t = 0;
+        // 慢指针
+        int slow = 0;
+        // 利用 i 为快指针
         for (int i = 0; i < nums.length; i++) {
-            if (t == 0 || nums[i] != nums[i - 1]) {
-                nums[t++] = nums[i];
+            // 特殊情况
+            if (slow == 0 || nums[i] != nums[i - 1]) {
+                nums[slow++] = nums[i];
             }
         }
-        return t;
+        return slow;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
@@ -83,13 +88,16 @@ class Test26 {
     }
 
     public static int removeDuplicates(int[] nums) {
-        int t = 0;
+        // 慢指针
+        int slow = 0;
+        // 利用 i 为快指针
         for (int i = 0; i < nums.length; i++) {
-            if (t == 0 || nums[i] != nums[i - 1]) {
-                nums[t++] = nums[i];
+            // 特殊情况
+            if (slow == 0 || nums[i] != nums[i - 1]) {
+                nums[slow++] = nums[i];
             }
         }
-        return t;
+        return slow;
     }
 
     public static int removeDuplicates2(int[] nums) {
