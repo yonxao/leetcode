@@ -1,5 +1,5 @@
 @SuppressWarnings("all")
-class Q1 {
+class Q001 {
 
     public static void main(String[] args) {
         System.out.println(tableSizeFor(123));
