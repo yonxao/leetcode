@@ -53,6 +53,11 @@ import java.util.Arrays;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution189 {
+    /**
+     * [189]轮转数组 : 环状替换-数组翻转
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
+     */
     public void rotate(int[] nums, int k) {
         int n = nums.length;
         k %= n;
