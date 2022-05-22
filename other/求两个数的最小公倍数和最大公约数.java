@@ -124,7 +124,6 @@ class Q002 {
             x = y;
             y = temp;
         }
-
     }
 
 
